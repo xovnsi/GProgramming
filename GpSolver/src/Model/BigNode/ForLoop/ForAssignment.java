@@ -19,7 +19,6 @@ public class ForAssignment extends VarAssigment implements SubtreeMutable {
     }
     public ForAssignment(Node parentNode) {
         super(parentNode, "ForAssignment");
-        generate(getProgramConfig());
 
     }
 }

@@ -17,11 +17,6 @@ import static Model.BigNode.HasScope.indentCounter;
 public class VarAssigment extends Node implements SubtreeMutable {
 
     @Override
-    public ArrayList<Node> getChildrenAsNodes() {
-        return null;
-    }
-
-    @Override
     public void generate(Config config){
         childrenNodes.add(new Variable(this));
         childrenNodes.add(new Expression(this));
@@ -29,7 +24,6 @@ public class VarAssigment extends Node implements SubtreeMutable {
 
     @Override
     public String toString() {
-
         return childrenNodes.get(0) +
                 " = " +
                 childrenNodes.get(1) +

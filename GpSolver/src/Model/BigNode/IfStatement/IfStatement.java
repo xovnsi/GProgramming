@@ -24,11 +24,6 @@ public class IfStatement extends Node implements SubtreeMutable, HasScope {
     }
 
     @Override
-    public ArrayList<Node> getChildrenAsNodes() {
-        return null;
-    }
-
-    @Override
     public void reCalculateIndent() {
         this.setIndent(this.getParentIndent() + 1);
     }

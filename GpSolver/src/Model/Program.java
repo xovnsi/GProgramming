@@ -22,11 +22,6 @@ public class Program extends Node {
     }
 
     @Override
-    public ArrayList<Node> getChildrenAsNodes() {
-        return null;
-    }
-
-    @Override
     public String toString() {
         StringBuilder program = new StringBuilder();
 

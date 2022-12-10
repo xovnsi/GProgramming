@@ -28,7 +28,15 @@ public abstract class Node {
         return possibleChildrenNodes.get((RANDOM.nextInt(possibleChildrenNodes.size())));
     }
 
-    public abstract ArrayList<Node> getChildrenAsNodes();
+    public ArrayList<Node> getChildrenAsNodes(){
+        ArrayList<Node> nodes = new ArrayList<>();
+        nodes.add(this);
+
+        for (Node node : this.childrenNodes) {
+            nodes.addAll(node.getChildrenAsNodes());
+        }
+        return nodes;
+    }
 
     public void generate(Config config){}
 
@@ -59,6 +67,6 @@ public abstract class Node {
         this.possibleChildrenNodes = null;
         this.NAME = name;
 
-        depth = parentNode == null ? -1 : parentNode.depth;
+        depth = parentNode == null ? -1 : parentNode.depth + 1;
     }
 }

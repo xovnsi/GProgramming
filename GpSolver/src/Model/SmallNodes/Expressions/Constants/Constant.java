@@ -14,10 +14,6 @@ public class Constant extends Node implements SmallNode, PointMutable {
     String value;
     String type;
 
-    @Override
-    public ArrayList<Node> getChildrenAsNodes() {
-        return null;
-    }
 
     @Override
     public String toString(){

@@ -30,11 +30,6 @@ public class WriteStatement extends Node implements SubtreeMutable {
     }
 
     @Override
-    public ArrayList<Node> getChildrenAsNodes() {
-        return null;
-    }
-
-    @Override
     public void generate(Config config){
         childrenNodes.add(newChildren(getRandomPossibleChild()));
     }

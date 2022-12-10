@@ -14,11 +14,6 @@ import static Model.BigNode.HasScope.indentCounter;
 public class TwoArgExpression extends Node implements SmallNode, PointMutable, SubtreeMutable {
     public String operator;
 
-    @Override
-    public ArrayList<Node> getChildrenAsNodes() {
-        return null;
-    }
-
     public String newChildren(String randomPossibleChild){
         return switch (randomPossibleChild) {
             case "+"-> "+";

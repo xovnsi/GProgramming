@@ -44,10 +44,6 @@ public class ComparisonExpression extends Node implements SmallNode, PointMutabl
                 ")";
     }
 
-    @Override
-    public ArrayList<Node> getChildrenAsNodes() {
-        return null;
-    }
 
     @Override
     public void generate(Config config){

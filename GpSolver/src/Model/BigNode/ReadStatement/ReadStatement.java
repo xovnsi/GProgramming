@@ -17,11 +17,6 @@ public class ReadStatement extends Node {
     }
 
     @Override
-    public ArrayList<Node> getChildrenAsNodes() {
-        return null;
-    }
-
-    @Override
     public void generate(Config config){
         childrenNodes.add(new Variable(this));
     }

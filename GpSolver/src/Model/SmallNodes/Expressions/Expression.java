@@ -19,11 +19,6 @@ import static Model.BigNode.HasScope.indentCounter;
 
 public class Expression extends Node implements SmallNode, SubtreeMutable {
 
-    @Override
-    public ArrayList<Node> getChildrenAsNodes() {
-        return null;
-    }
-
     public Node newChildren(String randomPossibleChild){
         return switch (randomPossibleChild) {
             case "TwoArgExpression" -> new TwoArgExpression(this);
@@ -42,8 +37,20 @@ public class Expression extends Node implements SmallNode, SubtreeMutable {
 
     @Override
     public void generate(Config config){
-        childrenNodes.add(newChildren(getRandomPossibleChild()));
+        String child = getRandomPossibleChild();
+        while (!isChildValid(config, child)) {
+            child = getRandomPossibleChild();
+        }
+        childrenNodes.add(newChildren(child));
     }
+
+    public Boolean isChildValid(Config config, String child){
+        if(this.depth > config.maxDepth && child.equals("TwoArgExpression")){
+            return false;
+        }
+        return true;
+    }
+
 
     public Expression(Node parentNode){
         super(parentNode, "Expression");

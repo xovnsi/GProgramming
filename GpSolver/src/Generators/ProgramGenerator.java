@@ -1,6 +1,7 @@
 package Generators;
 
 import Evaluators.Evaluator;
+import Model.Node;
 import Model.Program;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class ProgramGenerator {
         Program firstProgram = generator.generateProgram(new Config());
 
         System.out.println(firstProgram.toString());
+        ArrayList<Node> nodes_ = firstProgram.getChildrenAsNodes();
         int a = 3;
     }
 }

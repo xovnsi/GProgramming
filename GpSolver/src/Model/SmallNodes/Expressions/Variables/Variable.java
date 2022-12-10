@@ -21,10 +21,6 @@ public class Variable extends Node implements SmallNode, PointMutable {
         return variableName;
     }
 
-    @Override
-    public ArrayList<Node> getChildrenAsNodes() {
-        return null;
-    }
 
     @Override
     public void Mutate() {

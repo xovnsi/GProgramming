@@ -2,7 +2,7 @@ package Generators;
 
 public class Config {
     public int populationSize = 100;
-    public int maxDepth = 7;
+    public int maxDepth = 3;
     public int maxWidth = 5;
 
     public boolean isFull = true;

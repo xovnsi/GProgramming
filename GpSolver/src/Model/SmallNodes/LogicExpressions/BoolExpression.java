@@ -17,11 +17,6 @@ import static Model.BigNode.HasScope.indentCounter;
 
 public class BoolExpression extends Node implements SmallNode, PointMutable, SubtreeMutable {
 
-    @Override
-    public ArrayList<Node> getChildrenAsNodes() {
-        return null;
-    }
-
     public String operator;
 
     public String newChildren(String randomPossibleChild){
@@ -35,7 +30,6 @@ public class BoolExpression extends Node implements SmallNode, PointMutable, Sub
 
     @Override
     public String toString() {
-
         return "(" + childrenNodes.get(0) +
                 " " + operator + " " +
                 childrenNodes.get(1) +
@@ -46,20 +40,25 @@ public class BoolExpression extends Node implements SmallNode, PointMutable, Sub
     public void Mutate() {
 
     }
+
     @Override
     public void generate(Config config){
-        childrenNodes.add(RandomLogicalExpression());
+        childrenNodes.add(RandomLogicalExpression(config));
         operator = newChildren(getRandomPossibleChild());
-        childrenNodes.add(RandomLogicalExpression());
+        childrenNodes.add(RandomLogicalExpression(config));
     }
 
-    public Node RandomLogicalExpression(){
+    public Node RandomLogicalExpression(Config config){
+        if(this.depth >= config.maxDepth){
+            return new ComparisonExpression(this);
+        }
         if(getRandomPercentages() > 0.5){
             return new BoolExpression(this);
         }else {
             return new ComparisonExpression(this);
         }
     }
+
     public BoolExpression(Node parentNode){
         super(parentNode, "BoolExpression");
         possibleChildrenNodes = new ArrayList<>(){

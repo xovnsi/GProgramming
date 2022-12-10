@@ -23,11 +23,6 @@ public class ForLoop extends Node implements SubtreeMutable, HasScope {
     public int indentCounter = 0;
 
     @Override
-    public ArrayList<Node> getChildrenAsNodes() {
-        return null;
-    }
-
-    @Override
     public void setIndent(int toSet) {
         this.indentCounter = toSet;
     }

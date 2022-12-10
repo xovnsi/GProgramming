@@ -26,10 +26,6 @@ public class ForIncrement extends Node implements SubtreeMutable{
         };
     }
 
-    @Override
-    public ArrayList<Node> getChildrenAsNodes() {
-        return null;
-    }
 
     @Override
     public void generate(Config config){
