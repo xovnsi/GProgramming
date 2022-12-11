@@ -17,10 +17,10 @@ public class ForIncrement extends Node implements SubtreeMutable{
 
     public String newChildren(String randomPossibleChild){
         return switch (randomPossibleChild) {
-            case "+"-> "+";
-            case "-" -> "-";
-            case "*" -> "*";
-            case "/" -> "/";
+            case "+" -> "+ ";
+            case "-" -> "- ";
+            case "*" -> "* ";
+            case "/" -> "/ ";
             //      should never happen
             default -> null;
         };
