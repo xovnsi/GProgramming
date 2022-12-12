@@ -51,15 +51,16 @@ public class ProgramGenerator {
 
     public static void main(String[] args) {
         ProgramGenerator generator = new ProgramGenerator();
-
         Program firstProgram = generator.generateProgram(new Config());
         Program secondProgram = generator.generateProgram(new Config());
+        System.out.println("------------------- First program: ---------------------");
         System.out.println(firstProgram.toString());
+        System.out.println("------------------- Second program: -------------------");
         System.out.println(secondProgram.toString());
         ArrayList<Program> children = generator.crossover(firstProgram, secondProgram);
-        System.out.println("child one:");
+        System.out.println("------------------- First child: -------------------");
         System.out.println(children.get(0));
-        System.out.println("child two:");
+        System.out.println("------------------- Second child: -------------------");
         System.out.println(children.get(1));
         ArrayList<Node> nodes_ = firstProgram.getChildrenAsNodes();
         int a = 3;

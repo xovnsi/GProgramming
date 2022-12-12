@@ -47,14 +47,13 @@ public class Scope extends Node implements SubtreeMutable {
 
     public Node newChildren(String randomPossibleChild){
         return switch (randomPossibleChild) {
-//            case "ReadStatement" -> new ReadStatement(this);
-//            case "WriteStatement" -> new WriteStatement(this);
-//            case "ForLoop" -> new ForLoop(this);
-//            case "IfStatement" -> new IfStatement(this);
-//            case "VarAssignment" -> new VarAssigment(this);
-//            //      should never happen
-//            default -> null;
-            default -> new IfStatement(this);
+            case "ReadStatement" -> new ReadStatement(this);
+            case "WriteStatement" -> new WriteStatement(this);
+            case "ForLoop" -> new ForLoop(this);
+            case "IfStatement" -> new IfStatement(this);
+            case "VarAssignment" -> new VarAssigment(this);
+            //      should never happen
+            default -> null;
         };
     }
 
@@ -76,8 +75,7 @@ public class Scope extends Node implements SubtreeMutable {
             this.indentCounter = 1;
         }
 
-//        Delete this if later!!!!!!!
-        if (indentCounter == 3){
+        if (indentCounter == getProgramConfig().maxWidth){
             return;
         }
         generate(getProgramConfig());

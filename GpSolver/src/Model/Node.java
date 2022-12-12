@@ -52,11 +52,11 @@ public abstract class Node {
         node1.parentNode = parent2;
     }
 
-    public void generate(Config config){}
-
     public ArrayList<Node> getChildrenAsNodesWithEmpty() {
         return getChildrenAsNodes();
     }
+
+    public void generate(Config config){}
 
     public ArrayList<Variable> getProgramVariables() {
         return parentNode.getProgramVariables();
