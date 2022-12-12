@@ -13,7 +13,7 @@ public abstract class Node {
     public int depth;
     public ArrayList<String> possibleChildrenNodes;
     public ArrayList<Node> childrenNodes;
-    public final String NAME;
+    public String NAME;
 
     private static final Random RANDOM = new Random();
 
@@ -38,6 +38,20 @@ public abstract class Node {
         return nodes;
     }
 
+    public static void swapNodes(Node node1, Node node2) {
+        Node parent1 = node1.parentNode;
+        Node parent2 = node2.parentNode;
+
+        int node1Position = parent1.childrenNodes.indexOf(node1);
+        int node2Position = parent2.childrenNodes.indexOf(node2);
+
+        parent1.childrenNodes.set(node1Position, node2);
+        node2.parentNode = parent1;
+
+        parent2.childrenNodes.set(node2Position, node1);
+        node1.parentNode = parent2;
+    }
+
     public void generate(Config config){}
 
     public ArrayList<Node> getChildrenAsNodesWithEmpty() {
@@ -47,6 +61,8 @@ public abstract class Node {
     public ArrayList<Variable> getProgramVariables() {
         return parentNode.getProgramVariables();
     }
+
+
 
     public void addToProgramVariables(Variable variable) {
         parentNode.addToProgramVariables(variable);
