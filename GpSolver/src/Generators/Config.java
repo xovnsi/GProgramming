@@ -12,4 +12,6 @@ public class Config {
     public int maxValue = 100;
     public int minValue = -100;
 
+    public String saveFolder = "GpSolver/SavedPrograms";
+
 }

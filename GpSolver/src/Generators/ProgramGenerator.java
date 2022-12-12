@@ -3,6 +3,7 @@ package Generators;
 import Evaluators.Evaluator;
 import Model.Node;
 import Model.Program;
+import Serializer.Serializer;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -53,15 +54,25 @@ public class ProgramGenerator {
         ProgramGenerator generator = new ProgramGenerator();
         Program firstProgram = generator.generateProgram(new Config());
         Program secondProgram = generator.generateProgram(new Config());
+
         System.out.println("------------------- First program: ---------------------");
+        Serializer serializer = new Serializer();
+        serializer.writeProgramToTxt(firstProgram);
         System.out.println(firstProgram.toString());
+
         System.out.println("------------------- Second program: -------------------");
         System.out.println(secondProgram.toString());
+        serializer.writeProgramToTxt(secondProgram);
         ArrayList<Program> children = generator.crossover(firstProgram, secondProgram);
+
         System.out.println("------------------- First child: -------------------");
         System.out.println(children.get(0));
+        Serializer serializerChild = new Serializer("Child");
+        serializerChild.writeProgramToTxt(children.get(0));
+
         System.out.println("------------------- Second child: -------------------");
         System.out.println(children.get(1));
+        serializerChild.writeProgramToTxt(children.get(1));
         ArrayList<Node> nodes_ = firstProgram.getChildrenAsNodes();
         int a = 3;
     }
