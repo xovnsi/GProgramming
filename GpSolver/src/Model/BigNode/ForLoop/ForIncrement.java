@@ -11,6 +11,7 @@ import Model.SmallNodes.LogicExpressions.BoolExpression;
 import Model.SmallNodes.LogicExpressions.ComparisonExpression;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ForIncrement extends Node implements SubtreeMutable{
     public String operator;
@@ -24,6 +25,16 @@ public class ForIncrement extends Node implements SubtreeMutable{
             //      should never happen
             default -> null;
         };
+    }
+
+    public void Mutate(Config config) {
+        do {
+            String newOperator = newChildren(getRandomPossibleChild());
+            if(!Objects.equals(operator, newOperator)) {
+                operator = newOperator;
+                break;
+            }
+        } while (true);
     }
 
 

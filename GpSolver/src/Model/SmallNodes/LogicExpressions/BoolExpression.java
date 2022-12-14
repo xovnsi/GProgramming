@@ -12,6 +12,7 @@ import Model.SmallNodes.Expressions.Variables.Variable;
 import Model.SmallNodes.SmallNode;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static Model.BigNode.HasScope.indentCounter;
 
@@ -37,8 +38,12 @@ public class BoolExpression extends Node implements SmallNode, PointMutable, Sub
     }
 
     @Override
-    public void Mutate() {
-
+    public void Mutate(Config config) {
+        if(Objects.equals(operator, "and")) {
+            operator = "or";
+        } else {
+            operator = "and";
+        }
     }
 
     @Override

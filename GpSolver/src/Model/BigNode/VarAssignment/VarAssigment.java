@@ -11,6 +11,7 @@ import Model.SmallNodes.Expressions.Variables.Variable;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
 import static Model.BigNode.HasScope.indentCounter;
 
@@ -28,6 +29,18 @@ public class VarAssigment extends Node implements SubtreeMutable {
                 " = " +
                 childrenNodes.get(1) +
                 ";";
+    }
+
+    public void Mutate(Config config) {
+        Random random = new Random();
+        int randomIndex = random.nextInt(2);
+        if (randomIndex == 0) {
+            Variable varName = (Variable) childrenNodes.get(0);
+            varName.Mutate(config);
+        } else {
+            Expression exp = (Expression) childrenNodes.get(1);
+            exp.Mutate(config);
+        }
     }
 
     public VarAssigment(Node parentNode){

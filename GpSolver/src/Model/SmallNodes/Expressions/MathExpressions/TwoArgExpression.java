@@ -8,6 +8,7 @@ import Model.SmallNodes.Expressions.Expression;
 import Model.SmallNodes.SmallNode;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static Model.BigNode.HasScope.indentCounter;
 
@@ -35,8 +36,14 @@ public class TwoArgExpression extends Node implements SmallNode, PointMutable, S
     }
 
     @Override
-    public void Mutate() {
-
+    public void Mutate(Config config) {
+        do {
+            String newOperator = newChildren(getRandomPossibleChild());
+            if(!Objects.equals(operator, newOperator)) {
+                operator = newOperator;
+                break;
+            }
+        } while (true);
     }
 
     @Override
