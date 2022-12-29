@@ -20,6 +20,10 @@ public class Constant extends Node implements SmallNode, PointMutable {
         return value;
     }
     @Override
+    public int getValue(){
+        return Integer.parseInt(value);
+    }
+    @Override
     public void Mutate() {
     }
 

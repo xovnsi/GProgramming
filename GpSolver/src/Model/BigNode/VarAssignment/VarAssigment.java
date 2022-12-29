@@ -1,18 +1,10 @@
 package Model.BigNode.VarAssignment;
 
 import Generators.Config;
-import Model.BigNode.HasScope;
 import Model.Interfaces.SubtreeMutable;
 import Model.Node;
-import Model.SmallNodes.Expressions.Constants.Constant;
 import Model.SmallNodes.Expressions.Expression;
-import Model.SmallNodes.Expressions.MathExpressions.TwoArgExpression;
 import Model.SmallNodes.Expressions.Variables.Variable;
-
-import java.util.ArrayList;
-import java.util.Objects;
-
-import static Model.BigNode.HasScope.indentCounter;
 
 public class VarAssigment extends Node implements SubtreeMutable {
 
@@ -29,6 +21,15 @@ public class VarAssigment extends Node implements SubtreeMutable {
                 childrenNodes.get(1) +
                 ";";
     }
+//    @Override
+//    public void evaluate(){
+////            Node var = childrenNodes.get(0);
+////            if(getProgramVariables().contains(var)){
+////                int index = getProgramVariables().indexOf(var);
+////                int val = childrenNodes.get(1).getValue();
+////                getProgramVariables().get(index).value = val;
+////            }
+//    }
 
     public VarAssigment(Node parentNode){
         super(parentNode, "VarAssigment");

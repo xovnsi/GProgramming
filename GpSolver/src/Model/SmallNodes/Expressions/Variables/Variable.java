@@ -15,17 +15,21 @@ import static Model.BigNode.HasScope.indentCounter;
 
 public class Variable extends Node implements SmallNode, PointMutable {
     public String variableName;
+    public int value = 0;
 
     @Override
     public String toString() {
         return variableName;
     }
 
+    @Override
+    public int getValue(){
+        return value;
+    }
 
     @Override
-    public void Mutate() {
+    public void Mutate() {}
 
-    }
     private String createName(Config config) {
         ArrayList<Variable> variables = getProgramVariables();
 

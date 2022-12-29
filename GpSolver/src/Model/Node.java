@@ -14,6 +14,7 @@ public abstract class Node {
     public ArrayList<String> possibleChildrenNodes;
     public ArrayList<Node> childrenNodes;
     public String NAME;
+//    public int value = 0;
 
     private static final Random RANDOM = new Random();
 
@@ -62,7 +63,10 @@ public abstract class Node {
         return parentNode.getProgramVariables();
     }
 
+    public void evaluate(){
 
+    };
+    public int getValue(){return 0;}
 
     public void addToProgramVariables(Variable variable) {
         parentNode.addToProgramVariables(variable);
