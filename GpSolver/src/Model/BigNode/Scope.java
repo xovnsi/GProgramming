@@ -54,8 +54,9 @@ public class Scope extends Node implements SubtreeMutable {
             case "ForLoop" -> new ForLoop(this);
             case "IfStatement" -> new IfStatement(this);
             case "VarAssignment" -> new VarAssigment(this);
-            //      should never happen
+//            //      should never happen
             default -> null;
+//            default -> new ForLoop(this);
         };
     }
 

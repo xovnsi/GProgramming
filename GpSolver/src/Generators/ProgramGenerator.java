@@ -1,5 +1,6 @@
 package Generators;
 
+
 import Evaluators.Evaluator;
 import Model.BigNode.ForLoop.ForAssignment;
 import Model.Interfaces.PointMutable;
@@ -28,7 +29,6 @@ public class ProgramGenerator {
         while (programs.size() < config.populationSize){
             programs.add(generateProgram(config));
         }
-
         return programs;
     }
 
@@ -83,11 +83,11 @@ public class ProgramGenerator {
 
         Program firstProgram = generator.generateProgram(new Config());
         Program secondProgram = generator.generateProgram(new Config());
+        Serializer serializer = new Serializer();
 
         System.out.println("------------------- First program: ---------------------");
-        Serializer serializer = new Serializer();
-        serializer.writeProgramToTxt(firstProgram);
         System.out.println(firstProgram.toString());
+        serializer.writeProgramToTxt(firstProgram);
 
         System.out.println("------------------- Second program: -------------------");
         System.out.println(secondProgram.toString());
@@ -102,7 +102,14 @@ public class ProgramGenerator {
         System.out.println("------------------- Second child: -------------------");
         System.out.println(children.get(1));
         serializerChild.writeProgramToTxt(children.get(1));
-        ArrayList<Node> nodes_ = firstProgram.getChildrenAsNodes();
+//        ArrayList<Node> nodes_ = firstProgram.getChildrenAsNodes();
+//        for (Node node: nodes_) {
+//            node.evaluate();
+//        }
+//        ArrayList<Node> nodes__ = secondProgram.getChildrenAsNodes();
+//        for (Node node: nodes__) {
+//            node.evaluate();
+//        }
         int a = 3;
     }
 }

@@ -10,7 +10,6 @@ import Model.SmallNodes.Expressions.Variables.Variable;
 
 public class ForAssignment extends VarAssigment implements SubtreeMutable {
 
-
     @Override
     public String toString() {
         return childrenNodes.get(0) +
