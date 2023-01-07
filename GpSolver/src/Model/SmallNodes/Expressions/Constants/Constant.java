@@ -19,12 +19,15 @@ public class Constant extends Node implements SmallNode, PointMutable {
     public String toString(){
         return value;
     }
+    
     @Override
     public int getValue(){
         return Integer.parseInt(value);
     }
+    
     @Override
     public void Mutate() {
+        value = generateValue(type, config);
     }
 
     @Override

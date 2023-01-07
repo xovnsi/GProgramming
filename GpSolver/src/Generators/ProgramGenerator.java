@@ -1,8 +1,15 @@
 package Generators;
 
-//import Evaluators.Evaluator;
+
+import Evaluators.Evaluator;
+import Model.BigNode.ForLoop.ForAssignment;
+import Model.Interfaces.PointMutable;
+import Model.Interfaces.SubtreeMutable;
 import Model.Node;
 import Model.Program;
+import Model.SmallNodes.Expressions.Constants.Constant;
+import Model.SmallNodes.Expressions.Expression;
+import Model.SmallNodes.Expressions.Variables.Variable;
 import Serializer.Serializer;
 
 import javax.swing.*;
@@ -38,6 +45,9 @@ public class ProgramGenerator {
             Node randomParentOneNode = parentOneTree.get(randomIndex);
             for (Node node : parentTwoTree) {
                 if (Objects.equals(randomParentOneNode.NAME, node.NAME)) {
+                    System.out.println("----------------------------------------\n" +
+                            "parent1 node: " + randomParentOneNode + "\nparent2 node: " + node +
+                            "\n----------------------------------------");
                     Node.swapNodes(randomParentOneNode, node);
                     children.add(parentOne);
                     children.add(parentTwo);
@@ -49,8 +59,28 @@ public class ProgramGenerator {
         return children;
     }
 
+    public Program mutate(Program parent) {
+        Program child = parent;
+        Random random = new Random();
+        ArrayList<Node> parentTree = parent.getChildrenAsNodes();
+        Node randomParentOneNode;
+        do {
+            int randomIndex = random.nextInt(parentTree.size() - 1) + 1;
+            randomParentOneNode = parentTree.get(randomIndex);
+        } while (Objects.equals(randomParentOneNode.NAME, "Scope") ||
+                Objects.equals(randomParentOneNode.NAME, "ReadStatement"));
+        System.out.println(".." + randomParentOneNode.NAME + " " + randomParentOneNode);
+        if (randomParentOneNode instanceof SubtreeMutable variable) {
+            variable.Mutate(parent.config);
+        } else if (randomParentOneNode instanceof PointMutable variable) {
+            variable.Mutate(parent.config);
+        }
+        return child;
+    }
+
     public static void main(String[] args) {
         ProgramGenerator generator = new ProgramGenerator();
+
         Program firstProgram = generator.generateProgram(new Config());
         Program secondProgram = generator.generateProgram(new Config());
         Serializer serializer = new Serializer();

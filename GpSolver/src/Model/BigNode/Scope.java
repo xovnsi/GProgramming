@@ -36,6 +36,8 @@ public class Scope extends Node implements SubtreeMutable {
         return program.toString();
     }
 
+    public void Mutate(Config config) {}
+
     public void generate(Config config){
         int counter = 0;
 

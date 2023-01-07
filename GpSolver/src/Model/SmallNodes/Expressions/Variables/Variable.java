@@ -9,6 +9,7 @@ import Model.SmallNodes.SmallNode;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 import static Model.BigNode.HasScope.indentCounter;
@@ -28,12 +29,25 @@ public class Variable extends Node implements SmallNode, PointMutable {
     }
 
     @Override
-    public void Mutate() {}
+    public void Mutate(Config config) {
+        ArrayList<Variable> variables = getProgramVariables();
+        Random random = new Random();
+
+        do {
+            int randomIndex = random.nextInt(variables.size());
+            String newVariableName = variables.get(randomIndex).variableName;
+            System.out.println(newVariableName +" " + variableName);
+            if (!Objects.equals(variableName, newVariableName) || variables.size() == 1) {
+                variableName = newVariableName;
+                break;
+            }
+        } while (true);
+    }
 
     private String createName(Config config) {
         ArrayList<Variable> variables = getProgramVariables();
 
-        if (variables.size() == 0) {
+        if (variables.isEmpty()) {
             return "_v0";
         }
 

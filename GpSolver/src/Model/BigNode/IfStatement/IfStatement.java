@@ -5,10 +5,14 @@ import Model.BigNode.HasScope;
 import Model.BigNode.Scope;
 import Model.Interfaces.SubtreeMutable;
 import Model.Node;
+import Model.SmallNodes.Expressions.Expression;
+import Model.SmallNodes.Expressions.Variables.Variable;
 import Model.SmallNodes.LogicExpressions.BoolExpression;
 import Model.SmallNodes.LogicExpressions.ComparisonExpression;
 
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Random;
 
 public class IfStatement extends Node implements SubtreeMutable, HasScope {
 
@@ -44,6 +48,17 @@ public class IfStatement extends Node implements SubtreeMutable, HasScope {
     @Override
     public int getIndent() {
         return indentCounter;
+    }
+
+    public void Mutate(Config config) {
+        String name = childrenNodes.get(0).NAME;
+        if(Objects.equals(name, "ComparisonExpression")) {
+            ComparisonExpression exp = (ComparisonExpression) childrenNodes.get(0);
+            exp.Mutate(config);
+        } else if (Objects.equals(name, "BoolExpression")) {
+            BoolExpression exp = (BoolExpression) childrenNodes.get(0);
+            exp.Mutate(config);
+        }
     }
 
     @Override

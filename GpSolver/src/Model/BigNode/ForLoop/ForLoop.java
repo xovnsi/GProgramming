@@ -17,6 +17,7 @@ import Model.SmallNodes.LogicExpressions.ComparisonExpression;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
 public class ForLoop extends Node implements SubtreeMutable, HasScope {
 
@@ -45,6 +46,22 @@ public class ForLoop extends Node implements SubtreeMutable, HasScope {
         childrenNodes.add(new ComparisonExpression(this));
         childrenNodes.add(new ForIncrement(this));
         childrenNodes.add(new Scope(this));
+    }
+
+    public void Mutate(Config config) {
+        Random random = new Random();
+        int randomIndex = random.nextInt(4);
+
+        if(randomIndex == 0) {
+            ForAssignment toMutate = (ForAssignment) childrenNodes.get(0);
+            toMutate.Mutate(config);
+        } else if (randomIndex == 1) {
+            ComparisonExpression toMutate = (ComparisonExpression) childrenNodes.get(1);
+            toMutate.Mutate(config);
+        } else if (randomIndex == 2) {
+            ForIncrement toMutate = (ForIncrement) childrenNodes.get(2);
+            toMutate.Mutate(config);
+        }
     }
 
     @Override

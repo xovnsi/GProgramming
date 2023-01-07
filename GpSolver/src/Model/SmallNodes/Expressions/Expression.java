@@ -36,20 +36,26 @@ public class Expression extends Node implements SmallNode, SubtreeMutable {
         return String.valueOf(childrenNodes.get(0));
     }
 
+
+    public void Mutate(Config config) {
+        String newChild = getRandomPossibleChild();
+        while (Boolean.FALSE.equals(isChildValid(config, newChild))) {
+            newChild = getRandomPossibleChild();
+        }
+        childrenNodes.set(0, newChildren(newChild));
+    }
+
     @Override
     public void generate(Config config){
         String child = getRandomPossibleChild();
-        while (!isChildValid(config, child)) {
+        while (Boolean.FALSE.equals(isChildValid(config, child))) {
             child = getRandomPossibleChild();
         }
         childrenNodes.add(newChildren(child));
     }
 
     public Boolean isChildValid(Config config, String child){
-        if(this.depth > config.maxDepth && child.equals("TwoArgExpression")){
-            return false;
-        }
-        return true;
+        return this.depth <= config.maxDepth || !child.equals("TwoArgExpression");
     }
 
     @Override

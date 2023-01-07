@@ -15,6 +15,7 @@ import Model.SmallNodes.Expressions.Variables.Variable;
 import Model.SmallNodes.SmallNode;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static Model.BigNode.HasScope.indentCounter;
 
@@ -53,8 +54,14 @@ public class ComparisonExpression extends Node implements SmallNode, PointMutabl
     }
 
     @Override
-    public void Mutate() {
-        
+    public void Mutate(Config config) {
+        do {
+            String newOperator = newChildren(getRandomPossibleChild());
+            if(!Objects.equals(operator, newOperator)) {
+                operator = newOperator;
+                break;
+            }
+        } while (true);
     }
 
     public ComparisonExpression(Node parentNode){

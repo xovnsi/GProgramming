@@ -29,6 +29,11 @@ public class WriteStatement extends Node implements SubtreeMutable {
                 ");";
     }
 
+    public void Mutate(Config config){
+        Node newChild = newChildren(getRandomPossibleChild());
+        childrenNodes.set(0, newChild);
+    }
+
     @Override
     public void generate(Config config){
         childrenNodes.add(newChildren(getRandomPossibleChild()));
