@@ -1,7 +1,5 @@
 package Generators;
 
-
-import Evaluators.Evaluator;
 import Model.BigNode.ForLoop.ForAssignment;
 import Model.Interfaces.PointMutable;
 import Model.Interfaces.SubtreeMutable;
@@ -102,6 +100,17 @@ public class ProgramGenerator {
         System.out.println("------------------- Second child: -------------------");
         System.out.println(children.get(1));
         serializerChild.writeProgramToTxt(children.get(1));
+
+        System.out.println("------------------- First mutation: -------------------");
+        Serializer serializerMutation = new Serializer("Mutation");
+        Program firstMutation = generator.mutate(firstProgram);
+        System.out.println(firstMutation);
+        serializerMutation.writeProgramToTxt(firstMutation);
+
+        System.out.println("------------------- Second mutation: -------------------");
+        Program secondMutation = generator.mutate(secondProgram);
+        System.out.println(secondMutation);
+        serializerMutation.writeProgramToTxt(secondMutation);
 //        ArrayList<Node> nodes_ = firstProgram.getChildrenAsNodes();
 //        for (Node node: nodes_) {
 //            node.evaluate();
