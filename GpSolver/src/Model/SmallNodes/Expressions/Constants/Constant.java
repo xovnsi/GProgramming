@@ -26,7 +26,7 @@ public class Constant extends Node implements SmallNode, PointMutable {
     }
     
     @Override
-    public void Mutate() {
+    public void Mutate(Config config) {
         value = generateValue(type, config);
     }
 
