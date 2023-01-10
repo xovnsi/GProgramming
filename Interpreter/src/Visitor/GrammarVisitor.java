@@ -25,7 +25,8 @@ public class GrammarVisitor<T> extends grammaBaseVisitor<Integer> {
             super.visit(tree);
         }
         else{
-            System.out.println("~~~ Time error ~~~");
+            System.out.println("~~~ Time exceeded ~~~");
+            System.exit(1);
         }
         return 0;
     }
@@ -36,7 +37,8 @@ public class GrammarVisitor<T> extends grammaBaseVisitor<Integer> {
             super.visitChildren(node);
         }
         else{
-            System.out.println("~~~ Time error ~~~");
+            System.out.println("~~~ Time exceeded ~~~");
+            System.exit(1);
         }
         return 0;
     }
