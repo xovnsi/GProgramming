@@ -31,12 +31,13 @@ public class Visitor {
         grammaParser parser = new grammaParser(tokens);
         ParseTree tree = parser.program();
         if (parser.getNumberOfSyntaxErrors() > 0) {
-            System.out.println("Errors in program");
+            System.out.println("~~~Errors in program ~~~");
             System.exit(-1000);
         }
         List<Integer> input = new ArrayList<>();
         input.add(10);
         input.add(-11);
+
         GrammarVisitor<Integer> visitor = new GrammarVisitor<Integer>(input);
         visitor.visit(tree);
         visitor.printVariables();
