@@ -1,0 +1,5 @@
+{
+		read(_v3);
+		write(_v0);
+		write(_v5);
+	}

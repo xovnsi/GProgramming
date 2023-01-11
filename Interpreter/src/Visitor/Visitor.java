@@ -15,8 +15,8 @@ public class Visitor {
 
         String expression = "{" +
                 "_v1 = (23 - 2);" +
-                "for (_v0 = 1, (_v0<(_v1 - 10)), + 1){" +
-                "if ((23>_v1)){" +
+                "for (_v0 = 1, (_v0 < (_v1 - 10)), + 1){" +
+                "if ((23 > _v1)){" +
                 "_v3 = 55;" +
                 "}" +
                 "}" +
@@ -31,12 +31,13 @@ public class Visitor {
         grammaParser parser = new grammaParser(tokens);
         ParseTree tree = parser.program();
         if (parser.getNumberOfSyntaxErrors() > 0) {
-            System.out.println("Errors in program");
+            System.out.println("~~~Errors in program ~~~");
             System.exit(-1000);
         }
         List<Integer> input = new ArrayList<>();
         input.add(10);
         input.add(-11);
+
         GrammarVisitor<Integer> visitor = new GrammarVisitor<Integer>(input);
         visitor.visit(tree);
         visitor.printVariables();

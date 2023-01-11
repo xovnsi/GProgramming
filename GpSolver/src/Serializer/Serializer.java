@@ -39,6 +39,7 @@ public class Serializer {
         counter = 0;
         fileName = fileName_;
     }
+
     public Serializer(String fileName_) {
         path = "GpSolver/SavedPrograms";
         counter = 0;

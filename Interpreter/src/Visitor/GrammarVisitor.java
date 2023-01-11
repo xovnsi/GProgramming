@@ -11,30 +11,40 @@ import java.util.List;
 import java.util.Map;
 
 public class GrammarVisitor<T> extends grammaBaseVisitor<Integer> {
-    public int maxStatement = 5;
-    public int statementCounter = 0;
+    long startTime = System.currentTimeMillis();
+    long threshold = 10;
 
     public Map<String, Integer> variables;
-
     public ArrayList<String> toWrite;
     public List<Integer> inputs;
 
 
     public Integer visit(ParseTree tree) {
-//        if(++statementCounter < maxStatement) {
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - startTime < threshold){
             super.visit(tree);
-//        }
+        }
+        else{
+            System.out.println("~~~ Time exceeded ~~~");
+            System.exit(1);
+        }
         return 0;
     }
 
     public Integer visitChildren(RuleNode node) {
-//        if(++statementCounter < maxStatement) {
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - startTime < threshold) {
             super.visitChildren(node);
-//        }
+        }
+        else{
+            System.out.println("~~~ Time exceeded ~~~");
+            System.exit(1);
+        }
         return 0;
     }
 
     public void printWriteEl(){
+        System.out.println("\nProgram output:");
         toWrite.forEach(System.out::println);
     }
 
@@ -198,6 +208,7 @@ public class GrammarVisitor<T> extends grammaBaseVisitor<Integer> {
     }
 
     public void printVariables(){
+        System.out.println("Program variables:");
         variables.forEach((key, value) -> System.out.println(key + " = " + value));
     }
 
