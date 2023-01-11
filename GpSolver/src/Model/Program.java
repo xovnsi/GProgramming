@@ -1,8 +1,8 @@
 package Model;
 
 import Generators.Config;
-import Model.BigNode.Scope;
-import Model.SmallNodes.Expressions.Variables.Variable;
+import Model.Nodes.Scope;
+import Model.Nodes.Expressions.Variables.Variable;
 
 import java.util.ArrayList;
 
@@ -29,7 +29,6 @@ public class Program extends Node {
             program.append(node.toString());
             program.append("\n");
         }
-
         return program.toString();
     }
 

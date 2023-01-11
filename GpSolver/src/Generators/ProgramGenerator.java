@@ -1,18 +1,11 @@
 package Generators;
 
-import Model.BigNode.ForLoop.ForAssignment;
 import Model.Interfaces.PointMutable;
 import Model.Interfaces.SubtreeMutable;
 import Model.Node;
 import Model.Program;
-import Model.SmallNodes.Expressions.Constants.Constant;
-import Model.SmallNodes.Expressions.Expression;
-import Model.SmallNodes.Expressions.Variables.Variable;
 import Serializer.Serializer;
-
-import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
 
@@ -20,14 +13,6 @@ public class ProgramGenerator {
 
     public Program generateProgram(Config config){
         return new Program(config);
-    }
-
-    public ArrayList<Program> generateFirstPopulation(Config config){
-        ArrayList<Program> programs = new ArrayList<>();
-        while (programs.size() < config.populationSize){
-            programs.add(generateProgram(config));
-        }
-        return programs;
     }
 
     public ArrayList<Program> crossover(Program parentOne, Program parentTwo) {
@@ -111,14 +96,6 @@ public class ProgramGenerator {
         Program secondMutation = generator.mutate(secondProgram);
         System.out.println(secondMutation);
         serializerMutation.writeProgramToTxt(secondMutation);
-//        ArrayList<Node> nodes_ = firstProgram.getChildrenAsNodes();
-//        for (Node node: nodes_) {
-//            node.evaluate();
-//        }
-//        ArrayList<Node> nodes__ = secondProgram.getChildrenAsNodes();
-//        for (Node node: nodes__) {
-//            node.evaluate();
-//        }
-        int a = 3;
+
     }
 }

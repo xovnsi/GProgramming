@@ -1,11 +1,9 @@
 package Model;
 
 import Generators.Config;
-import Model.BigNode.HasScope;
-import Model.SmallNodes.Expressions.Variables.Variable;
+import Model.Nodes.Expressions.Variables.Variable;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Random;
 
 public abstract class Node {
@@ -14,10 +12,7 @@ public abstract class Node {
     public ArrayList<String> possibleChildrenNodes;
     public ArrayList<Node> childrenNodes;
     public String NAME;
-//    public int value = 0;
-
     private static final Random RANDOM = new Random();
-
     public String toString(){ return null;};
 
     public static double getRandomPercentages() {
@@ -53,19 +48,12 @@ public abstract class Node {
         node1.parentNode = parent2;
     }
 
-    public ArrayList<Node> getChildrenAsNodesWithEmpty() {
-        return getChildrenAsNodes();
-    }
-
     public void generate(Config config){}
 
     public ArrayList<Variable> getProgramVariables() {
         return parentNode.getProgramVariables();
     }
 
-    public void evaluate(){
-
-    };
     public int getValue(){return 0;}
 
     public void addToProgramVariables(Variable variable) {
@@ -74,11 +62,6 @@ public abstract class Node {
 
     public Config getProgramConfig(){
         return parentNode.getProgramConfig();
-    }
-
-    protected Node addNode(Node child) {
-        Objects.requireNonNull(childrenNodes).add(child);
-        return child;
     }
 
     public Node(Node parentNode, String name) {
