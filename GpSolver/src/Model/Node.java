@@ -54,7 +54,6 @@ public abstract class Node {
         return parentNode.getProgramVariables();
     }
 
-    public int getValue(){return 0;}
 
     public void addToProgramVariables(Variable variable) {
         parentNode.addToProgramVariables(variable);

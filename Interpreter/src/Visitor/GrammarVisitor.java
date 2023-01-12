@@ -15,6 +15,7 @@ public class GrammarVisitor<T> extends grammaBaseVisitor<Integer> {
     long threshold = 10;
 
     public Map<String, Integer> variables;
+    public Map<String, String> stringVariables;
     public ArrayList<String> toWrite;
     public List<Integer> inputs;
 

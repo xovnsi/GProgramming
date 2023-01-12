@@ -11,16 +11,10 @@ import java.util.Random;
 
 public class Variable extends Node implements PointMutable {
     public String variableName;
-    public int value = 0;
 
     @Override
     public String toString() {
         return variableName;
-    }
-
-    @Override
-    public int getValue(){
-        return value;
     }
 
     @Override

@@ -39,6 +39,11 @@ public class Program extends Node {
 
     @Override
     public void addToProgramVariables(Variable variable) {
+        for(Variable var: variables){
+            if(var.variableName.equals(variable.variableName)){
+                return;
+            }
+        }
         variables.add(variable);
     }
 

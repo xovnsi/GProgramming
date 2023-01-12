@@ -8,5 +8,4 @@ public interface HasScope {
     public abstract void setIndent(int toSet);
     public abstract int getParentIndent();
     public abstract int getIndent();
-
 }

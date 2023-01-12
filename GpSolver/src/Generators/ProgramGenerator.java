@@ -108,14 +108,7 @@ public class ProgramGenerator {
         programs.add(firstProgram);
         programs.add(secondProgram);
         System.out.println(tournament.compete(programs, 1));
-//        ArrayList<Node> nodes_ = firstProgram.getChildrenAsNodes();
-//        for (Node node: nodes_) {
-//            node.evaluate();
-//        }
-//        ArrayList<Node> nodes__ = secondProgram.getChildrenAsNodes();
-//        for (Node node: nodes__) {
-//            node.evaluate();
-//        }
-        int a = 3;
+
+        System.out.println(firstProgram.getProgramVariables());
     }
 }
