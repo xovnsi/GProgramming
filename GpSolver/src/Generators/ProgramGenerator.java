@@ -97,5 +97,7 @@ public class ProgramGenerator {
         System.out.println(secondMutation);
         serializerMutation.writeProgramToTxt(secondMutation);
 
+        System.out.println(firstProgram.getProgramVariables());
+
     }
 }

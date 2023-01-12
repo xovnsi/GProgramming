@@ -47,10 +47,10 @@ public class Expression extends Node implements SubtreeMutable {
         return this.depth <= config.maxDepth || !child.equals("TwoArgExpression");
     }
 
-    @Override
-    public int getValue(){
-        return childrenNodes.get(0).getValue();
-    }
+//    @Override
+//    public int getValue(){
+//        return childrenNodes.get(0).getValue();
+//    }
 
     public Expression(Node parentNode){
         super(parentNode, "Expression");

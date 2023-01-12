@@ -11,16 +11,15 @@ public class Constant extends Node implements PointMutable {
     String value;
     String type;
 
-
     @Override
     public String toString(){
         return value;
     }
     
-    @Override
-    public int getValue(){
-        return Integer.parseInt(value);
-    }
+//    @Override
+//    public int getValue(){
+//        return Integer.parseInt(value);
+//    }
     
     @Override
     public void Mutate(Config config) {
@@ -34,20 +33,16 @@ public class Constant extends Node implements PointMutable {
     }
 
     public String generateValue(String type, Config config){
-        switch (type){
-            case "int" -> {
-                return Integer.toString(generateInt(config));
-            }
-            // should never happen
-            default -> {
-                return null;
-            }
+        if (type.equals("int")) {
+            return Integer.toString(generateInt(config));
         }
+        return null;
     }
 
     public int generateInt(Config config){
         return (int) ((Math.random() * (config.maxValue - config.minValue)) + config.minValue);
     }
+
     public Constant(Node parentNode){
         super(parentNode, "Constant");
         possibleChildrenNodes = new ArrayList<>(){
