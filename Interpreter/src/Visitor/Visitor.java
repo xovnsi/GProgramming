@@ -43,4 +43,5 @@ public class Visitor {
         visitor.printVariables();
         visitor.printWriteEl();
     }
+
 }

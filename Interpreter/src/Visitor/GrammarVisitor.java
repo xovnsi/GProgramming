@@ -15,7 +15,6 @@ public class GrammarVisitor<T> extends grammaBaseVisitor<Integer> {
     long threshold = 10;
 
     public Map<String, Integer> variables;
-    public Map<String, String> stringVariables;
     public ArrayList<String> toWrite;
     public List<Integer> inputs;
 
@@ -95,6 +94,10 @@ public class GrammarVisitor<T> extends grammaBaseVisitor<Integer> {
         while (super.visit(ctx.compExpression()) > 0){
             super.visit(ctx.scope());
             varVal = variables.get(varName);
+            if(incrementVal == 0 && operator.equals(" / ")){
+                System.out.println("~~~ Division by zero ~~~");
+                System.exit(0);
+            }
             varVal = incrementValue(varVal, operator, incrementVal);
             variables.replace(varName, varVal);
         }
@@ -139,6 +142,10 @@ public class GrammarVisitor<T> extends grammaBaseVisitor<Integer> {
         if (ctx.OPERATOR().getText().equals(" * ")){
             return left * right;
         } else if (ctx.OPERATOR().getText().equals(" / ")) {
+            if(right == 0){
+                System.out.println("~~~ Division by zero ~~~");
+                System.exit(0);
+            }
             return left / right;
         } else if (ctx.OPERATOR().getText().equals(" + ")) {
             return left + right;
