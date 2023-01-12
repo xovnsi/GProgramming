@@ -5,7 +5,12 @@ import Model.Interfaces.SubtreeMutable;
 import Model.Node;
 import Model.Program;
 import Serializer.Serializer;
+import Tournament.Tournament;
+
+import javax.swing.*;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
 
@@ -52,7 +57,7 @@ public class ProgramGenerator {
             randomParentOneNode = parentTree.get(randomIndex);
         } while (Objects.equals(randomParentOneNode.NAME, "Scope") ||
                 Objects.equals(randomParentOneNode.NAME, "ReadStatement"));
-        System.out.println(".." + randomParentOneNode.NAME + " " + randomParentOneNode);
+        System.out.println(randomParentOneNode.NAME + " " + randomParentOneNode);
         if (randomParentOneNode instanceof SubtreeMutable variable) {
             variable.Mutate(parent.config);
         } else if (randomParentOneNode instanceof PointMutable variable) {
@@ -61,7 +66,7 @@ public class ProgramGenerator {
         return child;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         ProgramGenerator generator = new ProgramGenerator();
 
         Program firstProgram = generator.generateProgram(new Config());
@@ -95,7 +100,22 @@ public class ProgramGenerator {
         System.out.println("------------------- Second mutation: -------------------");
         Program secondMutation = generator.mutate(secondProgram);
         System.out.println(secondMutation);
+        System.out.println(secondMutation.variables);
         serializerMutation.writeProgramToTxt(secondMutation);
 
+        Tournament tournament = new Tournament("GpSolver/TestCases/test1.txt");
+        ArrayList<Program> programs = new ArrayList<>();
+        programs.add(firstProgram);
+        programs.add(secondProgram);
+        System.out.println(tournament.compete(programs, 1));
+//        ArrayList<Node> nodes_ = firstProgram.getChildrenAsNodes();
+//        for (Node node: nodes_) {
+//            node.evaluate();
+//        }
+//        ArrayList<Node> nodes__ = secondProgram.getChildrenAsNodes();
+//        for (Node node: nodes__) {
+//            node.evaluate();
+//        }
+        int a = 3;
     }
 }
