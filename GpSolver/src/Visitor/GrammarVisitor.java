@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class GrammarVisitor<T> extends grammaBaseVisitor<Integer> {
     long startTime = System.currentTimeMillis();
-    long threshold = 20;
+    long threshold = 1000;
 
     public Map<String, Integer> variables;
     public ArrayList<String> toWrite;
@@ -25,8 +25,11 @@ public class GrammarVisitor<T> extends grammaBaseVisitor<Integer> {
             super.visit(tree);
         }
         else{
-            System.out.println("~~~ Time exceeded ~~~");
-            System.exit(1);
+            //System.out.println("~~~ Time exceeded ~~~");
+            //System.out.println(this.toWrite);
+            this.toWrite.add(null);
+            return 0;
+            //System.exit(1);
         }
         return 0;
     }
@@ -37,8 +40,7 @@ public class GrammarVisitor<T> extends grammaBaseVisitor<Integer> {
             super.visitChildren(node);
         }
         else{
-            System.out.println("~~~ Time exceeded ~~~");
-            System.exit(1);
+            return 0;
         }
         return 0;
     }
@@ -51,8 +53,12 @@ public class GrammarVisitor<T> extends grammaBaseVisitor<Integer> {
     @Override public Integer visitProgram(grammaParser.ProgramContext ctx) { return visitChildren(ctx); }
     @Override public Integer visitRead(grammaParser.ReadContext ctx) {
         String varName= ctx.VAR().getText();
-        Integer varValue = inputs.get(0);
-        inputs.remove(0);
+        Integer varValue = 0;
+        if (!inputs.isEmpty()) {
+            varValue = inputs.get(0);
+            inputs.remove(0);
+        }
+
         variables.put(varName, varValue);
         return 0;
     }
@@ -78,25 +84,37 @@ public class GrammarVisitor<T> extends grammaBaseVisitor<Integer> {
         String operator = ctx.OPERATOR().getText();
         Integer varVal = super.visit(ctx.expression());
 
-        if(variables.containsKey(varName)) {
+        if (variables.containsKey(varName)) {
             variables.replace(varName, varVal);
-        }else{
+        } else {
             variables.put(varName, varVal);
         }
 
-        int incrementVal = 0;
-        if(ctx.getChild(8) == ctx.constant()){
+        int incrementVal;
+        if(ctx.getChild(8) == ctx.constant()) {
             incrementVal = super.visit(ctx.constant());
-        }else{
+        } else {
             String secName = ctx.VAR(1).toString();
-            incrementVal = variables.get(secName);
+            try {
+                incrementVal = variables.get(secName);
+            } catch (NullPointerException e) {
+                incrementVal = 0;
+            }
+
         }
-        while (super.visit(ctx.compExpression()) > 0){
-            super.visit(ctx.scope());
+        while (super.visit(ctx.compExpression()) > 0) {
+            long currentTime = System.currentTimeMillis();
+            if (currentTime - startTime < threshold) {
+                super.visit(ctx.scope());
+            }
+            else{
+                this.toWrite.add(null);
+                return 0;
+            }
             varVal = variables.get(varName);
             if(incrementVal == 0 && operator.equals(" / ")){
-                System.out.println("~~~ Division by zero ~~~");
-                System.exit(0);
+                variables.replace(varName, Integer.MAX_VALUE);
+                return 0;
             }
             varVal = incrementValue(varVal, operator, incrementVal);
             variables.replace(varName, varVal);
@@ -143,8 +161,8 @@ public class GrammarVisitor<T> extends grammaBaseVisitor<Integer> {
             return left * right;
         } else if (ctx.OPERATOR().getText().equals(" / ")) {
             if(right == 0){
-                System.out.println("~~~ Division by zero ~~~");
-                System.exit(0);
+                //System.out.println("~~~ Division by zero ~~~");
+                return Integer.MAX_VALUE;
             }
             return left / right;
         } else if (ctx.OPERATOR().getText().equals(" + ")) {

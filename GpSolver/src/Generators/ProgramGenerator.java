@@ -9,10 +9,7 @@ import Tournament.Tournament;
 
 import javax.swing.*;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 public class ProgramGenerator {
 
@@ -67,8 +64,48 @@ public class ProgramGenerator {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        ProgramGenerator generator = new ProgramGenerator();
+        int populationSize = 10;
+        String testFile = "GpSolver/TestCases/test1.txt";
 
+        if (args.length == 1) {
+            testFile = args[0];
+        } else if (args.length == 2) {
+            try {
+                populationSize = Integer.parseInt(args[1]);
+            } catch (NumberFormatException e) {
+                System.err.println("Argument" + args[1] + " must be an integer.");
+                System.exit(1);
+            }
+        }
+
+        ProgramGenerator generator = new ProgramGenerator();
+        List<Program> population = new ArrayList<>();
+
+        for(int i = 0; i < populationSize; i++) {
+            Program program = generator.generateProgram(new Config());
+            population.add(program);
+        }
+        int generation = 1;
+
+        while (true) {
+            populationSize = population.size();
+            Tournament tournament = new Tournament(testFile, 0);
+            Collections.shuffle(population);
+            List<Program> winnersGroupOne =
+                    tournament.compete(population.subList(0, populationSize), (int)(populationSize * 0.1));
+            List<Program> winnersGroupTwo =
+                    tournament.compete(population.subList(populationSize / 2, populationSize), (int)(populationSize * 0.1));
+            population.clear();
+            population.addAll(winnersGroupOne);
+            population.addAll(winnersGroupTwo);
+            System.out.println("GENERATION: " + generation + " BEST SCORE: " + tournament.getBestScore());
+            if (tournament.getBestScore() == 0) {
+                break;
+            }
+        }
+        System.out.println(population.get(0).toString());
+
+        /*
         Program firstProgram = generator.generateProgram(new Config());
         Program secondProgram = generator.generateProgram(new Config());
         Serializer serializer = new Serializer();
@@ -103,12 +140,19 @@ public class ProgramGenerator {
         System.out.println(secondMutation.variables);
         serializerMutation.writeProgramToTxt(secondMutation);
 
-        Tournament tournament = new Tournament("GpSolver/TestCases/test1.txt");
+
+        //Tournament tournament = new Tournament("GpSolver/TestCases/test1.txt", 0);
         ArrayList<Program> programs = new ArrayList<>();
         programs.add(firstProgram);
         programs.add(secondProgram);
-        System.out.println(tournament.compete(programs, 1));
+        programs.add(firstMutation);
+        programs.add(secondMutation);
+        programs.add(children.get(0));
+        programs.add(children.get(1));
+        //System.out.println(tournament.compete(programs, 1));
 
-        System.out.println(firstProgram.getProgramVariables());
+        //System.out.println(firstProgram.getProgramVariables());
+
+         */
     }
 }
