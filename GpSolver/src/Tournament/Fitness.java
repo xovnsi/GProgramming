@@ -30,7 +30,7 @@ public class Fitness {
             fitness += result - meanValue;
         }
 
-        return 1 / (fitness / results.size());
+        return fitness / results.size();
     }
 
     /**
@@ -47,6 +47,6 @@ public class Fitness {
                 fitness = diff < fitness ? diff : fitness;
             }
         }
-        return 1 / fitness;
+        return fitness;
     }
 }

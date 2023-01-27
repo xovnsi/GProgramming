@@ -24,6 +24,7 @@ public class Tournament {
     public Tournament(String testFileName, int fitnessOption) {
         this.testFileName = testFileName;
         this.fitnessOption = fitnessOption;
+        this.bestScore = 0;
     }
 
     public double getBestScore() {
@@ -100,7 +101,9 @@ public class Tournament {
             List<Integer> resultInt = new ArrayList<>();
 
             if (result.contains(null)) {
-                resultInt.add(Integer.MAX_VALUE);
+                if(this.fitnessOption != 2) {
+                    resultInt.add(Integer.MAX_VALUE);
+                }
             } else {
                 resultInt = result.stream().map(Integer::parseInt).collect(Collectors.toList());
             }
@@ -109,9 +112,9 @@ public class Tournament {
 
         testReader.close();
         double sum = 0;
-        System.out.println("FITNESS VALUES: " + fitnessValues);
+        //System.out.println("FITNESS VALUES: " + fitnessValues);
         for (Double fitnessValue : fitnessValues) sum = sum + fitnessValue;
-        return sum / fitnessValues.size();
+        return sum > Double.MAX_VALUE ? Double.MAX_VALUE - 1 : sum / fitnessValues.size();
     }
 
     /**
