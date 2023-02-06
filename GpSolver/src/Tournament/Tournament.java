@@ -58,7 +58,8 @@ public class Tournament {
         return switch (this.fitnessOption) {
             case 0 -> Fitness.fitnessOutput(results.size(), expectedResults.size());
             case 1 -> Fitness.fitnessSensitivity(results);
-            case 2 -> Fitness.fitnessResult(results, expectedResults);
+            case 2 -> Fitness.fitnessOne(results, expectedResults);
+            case 3 -> Fitness.fitnessResult(results, expectedResults);
             default -> throw new UnsupportedOperationException();
         };
     }
@@ -112,9 +113,8 @@ public class Tournament {
 
         testReader.close();
         double sum = 0;
-        //System.out.println("FITNESS VALUES: " + fitnessValues);
         for (Double fitnessValue : fitnessValues) sum = sum + fitnessValue;
-        return sum > Double.MAX_VALUE ? Double.MAX_VALUE - 1 : sum / fitnessValues.size();
+        return sum > Double.MAX_VALUE ? Double.MAX_VALUE : sum / fitnessValues.size();
     }
 
     /**
@@ -128,7 +128,6 @@ public class Tournament {
         for (Program competitor: competitors) {
             fitnessScores.add(testProgram(competitor));
         }
-        System.out.println(fitnessScores);
 
         ArrayList<Program> winners = new ArrayList<>();
         for(int i = 0; i < nOfWinners; i++) {

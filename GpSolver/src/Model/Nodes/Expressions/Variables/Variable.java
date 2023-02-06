@@ -19,18 +19,7 @@ public class Variable extends Node implements PointMutable {
 
     @Override
     public void Mutate(Config config) {
-        ArrayList<Variable> variables = getProgramVariables();
-        Random random = new Random();
-
-        do {
-            int randomIndex = random.nextInt(variables.size());
-            String newVariableName = variables.get(randomIndex).variableName;
-            System.out.println(newVariableName + " " + variableName);
-            if (!Objects.equals(variableName, newVariableName) || variables.size() == 1) {
-                variableName = newVariableName;
-                break;
-            }
-        } while (true);
+        variableName = createName(config);
     }
 
     private String createName(Config config) {

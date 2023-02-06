@@ -1,6 +1,7 @@
 package Model.Nodes.Expressions;
 
 import Generators.Config;
+import Model.Interfaces.PointMutable;
 import Model.Nodes.Expressions.Constants.Constant;
 import Model.Nodes.Expressions.MathExpressions.TwoArgExpression;
 import Model.Nodes.Expressions.Variables.Variable;
@@ -8,6 +9,7 @@ import Model.Interfaces.SubtreeMutable;
 import Model.Node;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Expression extends Node implements SubtreeMutable {
 
@@ -28,10 +30,13 @@ public class Expression extends Node implements SubtreeMutable {
 
     public void Mutate(Config config) {
         String newChild = getRandomPossibleChild();
-        while (Boolean.FALSE.equals(isChildValid(config, newChild))) {
-            newChild = getRandomPossibleChild();
+        if(Objects.equals(newChild, "Variable")
+                && Objects.equals(childrenNodes.get(0).NAME, "Variable")
+                && childrenNodes.get(0) instanceof PointMutable variable) {
+            variable.Mutate(config);
+        } else {
+            childrenNodes.set(0, newChildren(newChild));
         }
-        childrenNodes.set(0, newChildren(newChild));
     }
 
     @Override

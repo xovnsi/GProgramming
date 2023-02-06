@@ -13,17 +13,13 @@ import java.util.List;
 public class Visitor {
     public static void main(String[] args) throws Exception {
 
-        String expression = "{" +
-                "_v1 = (23 - 2);" +
-                "for (_v0 = 1, (_v0 < (_v1 - 10)), + 1){" +
-                "if ((23 > _v1)){" +
-                "_v3 = 55;" +
-                "}" +
-                "}" +
-                "write(-96);" +
-                "read(_v5);" +
-                "read(_v6);" +
-                "}";
+        String expression = "{\nread(_v0);\n" +
+                "\tread(_v0);\n" +
+                "\tif (((-16 >= -27) or (_v0 == 35))){\n" +
+                "\t\tread(_v0);\n" +
+                "\t\twrite(_v0);\n" +
+                "\t\tread(_v0);\n" +
+                "\t\n}}";
 
         CharStream stream = CharStreams.fromString(expression);
         grammaLexer lexer = new grammaLexer(stream);
@@ -43,4 +39,5 @@ public class Visitor {
         visitor.printVariables();
         visitor.printWriteEl();
     }
+
 }

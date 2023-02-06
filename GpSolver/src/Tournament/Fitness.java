@@ -49,4 +49,12 @@ public class Fitness {
         }
         return fitness;
     }
+
+    public static double fitnessOne(List<Integer> results, List<Integer> expectedResults) {
+        if (results.isEmpty()) {
+            return 1000000;
+        } else {
+            return (results.get(0) - expectedResults.get(0)) * (results.get(0) - expectedResults.get(0));
+        }
+    }
 }

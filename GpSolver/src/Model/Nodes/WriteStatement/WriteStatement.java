@@ -1,11 +1,13 @@
 package Model.Nodes.WriteStatement;
 import Generators.Config;
+import Model.Interfaces.PointMutable;
 import Model.Interfaces.SubtreeMutable;
 import Model.Node;
 import Model.Nodes.Expressions.Expression;
 import Model.Nodes.Expressions.Variables.Variable;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class WriteStatement extends Node implements SubtreeMutable {
     public Node newChildren(String randomPossibleChild){
@@ -24,8 +26,14 @@ public class WriteStatement extends Node implements SubtreeMutable {
     }
 
     public void Mutate(Config config){
-        Node newChild = newChildren(getRandomPossibleChild());
-        childrenNodes.set(0, newChild);
+        String newChild = getRandomPossibleChild();
+        if(Objects.equals(newChild, "Variable")
+                && Objects.equals(childrenNodes.get(0).NAME, "Variable")
+                && childrenNodes.get(0) instanceof PointMutable variable) {
+            variable.Mutate(config);
+        } else {
+            childrenNodes.set(0, newChildren(newChild));
+        }
     }
 
     @Override

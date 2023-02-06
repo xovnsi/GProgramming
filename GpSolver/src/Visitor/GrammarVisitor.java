@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class GrammarVisitor<T> extends grammaBaseVisitor<Integer> {
     long startTime = System.currentTimeMillis();
-    long threshold = 1000;
+    long threshold = 100;
 
     public Map<String, Integer> variables;
     public ArrayList<String> toWrite;
@@ -40,7 +40,7 @@ public class GrammarVisitor<T> extends grammaBaseVisitor<Integer> {
             super.visitChildren(node);
         }
         else{
-            return 0;
+            return null;
         }
         return 0;
     }
@@ -161,8 +161,7 @@ public class GrammarVisitor<T> extends grammaBaseVisitor<Integer> {
             return left * right;
         } else if (ctx.OPERATOR().getText().equals(" / ")) {
             if(right == 0){
-                //System.out.println("~~~ Division by zero ~~~");
-                return Integer.MAX_VALUE;
+                return left;
             }
             return left / right;
         } else if (ctx.OPERATOR().getText().equals(" + ")) {
