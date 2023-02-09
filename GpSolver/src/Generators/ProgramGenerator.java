@@ -22,8 +22,11 @@ public class ProgramGenerator {
         boolean findCross = true;
 
         do {
-            int randomIndex = random.nextInt(parentOneTree.size() - 1) + 1;
-            Node randomParentOneNode = parentOneTree.get(randomIndex);
+            Node randomParentOneNode;
+            do {
+                int randomIndex = random.nextInt(parentOneTree.size() - 1) + 1;
+                randomParentOneNode = parentOneTree.get(randomIndex);
+            } while (Objects.equals(randomParentOneNode.NAME, "Scope"));
             for (Node node : parentTwoTree) {
                 if (Objects.equals(randomParentOneNode.NAME, node.NAME)) {
                     Node.swapNodes(randomParentOneNode, node);
@@ -48,8 +51,11 @@ public class ProgramGenerator {
         do {
             int randomIndex = random.nextInt(parentTree.size() - 1) + 1;
             randomParentOneNode = parentTree.get(randomIndex);
-        } while (Objects.equals(randomParentOneNode.NAME, "Scope") ||
-                Objects.equals(randomParentOneNode.NAME, "ReadStatement"));
+        } while (Objects.equals(randomParentOneNode.NAME, "ReadStatement")
+                || (Objects.equals(randomParentOneNode.NAME, "Scope") && randomParentOneNode.childrenNodes.isEmpty()));
+        if (Objects.equals(randomParentOneNode.NAME, "Scope")) {
+            System.out.println(randomParentOneNode.toString());
+        }
         if (randomParentOneNode instanceof SubtreeMutable variable) {
             variable.Mutate(parent.config);
         } else if (randomParentOneNode instanceof PointMutable variable) {
@@ -86,14 +92,21 @@ public class ProgramGenerator {
             Tournament tournament = new Tournament(testFile, 3);
             Collections.shuffle(population);
             List<Program> winnersGroupOne =
-                    tournament.compete(population.subList(0, populationSize), 2);
+                    tournament.compete(population.subList(0, populationSize / 2), 3);
             List<Program> winnersGroupTwo =
-                    tournament.compete(population.subList(populationSize / 2, populationSize), 2);
+                    tournament.compete(population.subList(populationSize / 2, populationSize), 3);
             population.clear();
             population.addAll(winnersGroupOne);
             population.addAll(winnersGroupTwo);
             populationSize = population.size();
-
+            System.out.println("-----------------------------");
+            System.out.println("WINNERS");
+            System.out.println("-----------------------------");
+            for (Program program: population
+                 ) {
+                System.out.println(program);
+            }
+            System.out.println("-----------------------------");
             System.out.println("GENERATION: " + generation + " BEST SCORE: " + tournament.getBestScore() + " POPULATION SIZE: " + populationSize);
             System.out.println(population.get(0).toString());
             if (tournament.getBestScore() < 0.1) {

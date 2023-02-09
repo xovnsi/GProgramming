@@ -31,7 +31,12 @@ public class Scope extends Node implements SubtreeMutable {
         return program.toString();
     }
 
-    public void Mutate(Config config) {}
+    public void Mutate(Config config) {
+        System.out.println(childrenNodes);
+        String newChild = getRandomPossibleChild();
+        int childIndex = (int) (Math.random() * (childrenNodes.size()));
+        childrenNodes.set(childIndex, newChildren(newChild));
+    }
 
     public void generate(Config config){
         int counter = 0;
